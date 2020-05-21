@@ -43,6 +43,7 @@ public class VendasDTO {
 	@CsvBindByName(column = "Bandeira")
 	private String bandeira;
 	
+	private Integer id;
 	
 	public VendasDTO() {
 		
@@ -125,6 +126,12 @@ public class VendasDTO {
 	}
 	public void setBandeira(String bandeira) {
 		this.bandeira = bandeira;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

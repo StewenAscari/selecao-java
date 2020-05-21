@@ -21,6 +21,7 @@ import com.opencsv.bean.CsvBindByPosition;
 public interface VendasRepository extends JpaRepository<Vendas, String> {
 	
 	List<Vendas> findByregiaoSigla(String regiaoSigla);
+
 	
 
 }

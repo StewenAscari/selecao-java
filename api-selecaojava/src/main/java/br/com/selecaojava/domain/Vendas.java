@@ -20,48 +20,37 @@ public class Vendas {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@CsvBindByName(column = "Região - Sigla")
 	@Column(columnDefinition = "VARCHAR(1000)")
 	@CsvBindByPosition(position = 0)
 	private String regiaoSigla;
 	
-	@CsvBindByName(column = "Estado - Sigla")
 	@CsvBindByPosition(position = 1)
 	private String estadoSigla;
 	
-	@CsvBindByName(column = "Município")
 	@CsvBindByPosition(position = 2)
 	private String municipio;
 	
-	@CsvBindByName(column = "Revenda")
 	@CsvBindByPosition(position = 3)
 	private String revenda;
 	
-	@CsvBindByName(column = "CNPJ da Revenda")
 	@CsvBindByPosition(position = 4)
 	private String cnpjdaRevenda;
 	
-	@CsvBindByName(column = "Produto")
 	@CsvBindByPosition(position = 5)
 	private String produto;
 	
-	@CsvBindByName(column = "Data da Coleta")
 	@CsvBindByPosition(position = 6)
 	private String datadaColeta;
 	
-	@CsvBindByName(column = "Valor de Venda")
 	@CsvBindByPosition(position = 7)
 	private String valordeVenda;
 	
-	@CsvBindByName(column = "Valor de Compra")
 	@CsvBindByPosition(position = 8)
 	private String valordeCompra;
 	
-	@CsvBindByName(column = "Unidade de Medida")
 	@CsvBindByPosition(position = 9)
 	private String unidadedeMedida;
 	
-	@CsvBindByName(column = "Bandeira")
 	@CsvBindByPosition(position = 10)
 	private String bandeira;
 	

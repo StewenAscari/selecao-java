@@ -24,6 +24,9 @@ public class VendasServices {
 	public void insert(List<Vendas> vendas) {
 		//obj.setId(null);
 		vendasRepository.saveAll(vendas);
+		while (vendas.remove(null)) {
+			System.out.println("remove null");
+		}
 	}
 //	private static final CsvMapper mapper = new CsvMapper();
 

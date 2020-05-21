@@ -3,6 +3,7 @@ package br.com.selecaojava.resources;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.opencsv.bean.ColumnPositionMappingStrategy;
+import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -47,18 +49,19 @@ public class VendasResource {
         } else {
 
             // parse CSV file to create a list of `Vendas` objects
-        	try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()), '\t')) {
+        	try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
         		
                 // create csv bean reader
                 CsvToBean<Vendas> csvToBean = new CsvToBeanBuilder(reader)
                         .withType(Vendas.class)
                         .withSkipLines(1)
+//                        .withSeparator(',')
+                        .withSeparator('\t')
                         .withIgnoreLeadingWhiteSpace(true)
                         .build();
-
+                
                 // convert `CsvToBean` object to list of users
                 List<Vendas> vendas = csvToBean.parse();
-
                 // TODO: save users in DB?
                 vendasServices.insert(vendas);
                 // save users list on model
