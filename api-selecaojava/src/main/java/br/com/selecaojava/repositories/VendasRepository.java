@@ -1,5 +1,5 @@
 package br.com.selecaojava.repositories;
-import br.com.selecaojava.domain.Vendas;
+import br.com.selecaojava.domain.Sales;
 import br.com.selecaojava.dto.VendasDTO;
 
 import java.util.List;
@@ -18,9 +18,9 @@ import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
 @Repository
-public interface VendasRepository extends JpaRepository<Vendas, String> {
+public interface VendasRepository extends JpaRepository<Sales, Integer> {
 	
-	List<Vendas> findByregiaoSigla(String regiaoSigla);
+	List<Sales> findByregiaoSigla(String regiaoSigla);
 
 	
 

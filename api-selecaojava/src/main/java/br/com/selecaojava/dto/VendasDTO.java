@@ -5,7 +5,7 @@ import javax.persistence.Column;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
-import br.com.selecaojava.domain.Vendas;
+import br.com.selecaojava.domain.Sales;
 
 public class VendasDTO {
 
@@ -48,7 +48,7 @@ public class VendasDTO {
 	public VendasDTO() {
 		
 	}
-	public VendasDTO(Vendas vendas) {
+	public VendasDTO(Sales vendas) {
 		regiaoSigla = vendas.getRegiaoSigla();
 		estadoSigla = vendas.getEstadoSigla();
 		municipio = vendas.getMunicipio();

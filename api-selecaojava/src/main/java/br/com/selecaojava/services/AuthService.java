@@ -1,12 +1,12 @@
 package br.com.selecaojava.services;
 
-import java.util.Random;
+import java.util.Random; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.selecaojava.domain.Useer;
+import br.com.selecaojava.domain.User;
 import br.com.selecaojava.repositories.UserRepository;
 import br.com.selecaojava.servives.exceptions.ObjectNotFoundException;
 
@@ -26,7 +26,7 @@ public class AuthService {
 
 	public void sendNewPassword(String email) {
 
-		Useer user = userRepository.findByEmail(email);
+		User user = userRepository.findByEmail(email);
 		
 		if (user == null) {
 			throw new ObjectNotFoundException("Email não encontrado");

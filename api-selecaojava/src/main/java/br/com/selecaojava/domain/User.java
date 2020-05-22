@@ -1,10 +1,13 @@
 package br.com.selecaojava.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -12,13 +15,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.selecaojava.enums.Perfil;
 
 @Entity
-public class Useer implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -30,15 +33,20 @@ public class Useer implements Serializable {
 	@JsonIgnore  //Do not show password when retrieving data
 	private String senha;
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<Sales> sales = new ArrayList<>();
+	
+	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 		
 	
-	public Useer() {
+	public User() {
 		addPerfil(Perfil.ADMIN);
 	}
-	public Useer(Integer id, String nome, String email, String senha) {
+	public User(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -86,7 +94,14 @@ public class Useer implements Serializable {
 	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getCod());
 	}
-
+	
+	
+	public List<Sales> getSales() {
+		return sales;
+	}
+	public void setSales(List<Sales> sales) {
+		this.sales = sales;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,7 +117,7 @@ public class Useer implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Useer other = (Useer) obj;
+		User other = (User) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

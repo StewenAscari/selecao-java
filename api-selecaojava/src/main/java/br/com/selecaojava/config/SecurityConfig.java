@@ -40,8 +40,6 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	
 	private static final String[] PUBLIC_MATCHERS = { //Arraay dos endpoint que vão ser permitidos os acessos
 			"/h2-console/**",
-			"/property/**",
-			"/property/1/**"
 			
 	};
 	

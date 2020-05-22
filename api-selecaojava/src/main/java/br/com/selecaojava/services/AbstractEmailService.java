@@ -1,12 +1,12 @@
 package br.com.selecaojava.services;
 
-import java.util.Date;
+import java.util.Date; 
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-import br.com.selecaojava.domain.Useer;
+import br.com.selecaojava.domain.User;
 
 @Service
 public abstract class AbstractEmailService implements EmailService{
@@ -15,13 +15,13 @@ public abstract class AbstractEmailService implements EmailService{
 	private String sender;
 	
 	@Override
-	public void sendNewPasswordEmail(Useer user, String newPass) {
+	public void sendNewPasswordEmail(User user, String newPass) {
 		SimpleMailMessage sm = prepareNewPasswordEmail(user, newPass);
 		sendEmail(sm);
 	}
 	
 
-	protected SimpleMailMessage prepareNewPasswordEmail(Useer user, String newPass) {
+	protected SimpleMailMessage prepareNewPasswordEmail(User user, String newPass) {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(user.getEmail());
 		sm.setFrom(sender);

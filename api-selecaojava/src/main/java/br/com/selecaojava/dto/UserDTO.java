@@ -1,11 +1,10 @@
 package br.com.selecaojava.dto;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
-import br.com.selecaojava.domain.Useer;
+import br.com.selecaojava.domain.User;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,7 +25,7 @@ public class UserDTO implements Serializable{
 		
 	}
 	
-	public UserDTO(Useer user) {
+	public UserDTO(User user) {
 		id = user.getId();
 		nome = user.getNome();
 		email = user.getEmail();

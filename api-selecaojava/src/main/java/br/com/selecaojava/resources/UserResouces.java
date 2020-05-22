@@ -1,6 +1,6 @@
 package br.com.selecaojava.resources;
 
-import java.net.URI;
+import java.net.URI; 
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.selecaojava.domain.Useer;
+import br.com.selecaojava.domain.User;
 import br.com.selecaojava.dto.NomeDTO;
 import br.com.selecaojava.dto.PasswordDTO;
 import br.com.selecaojava.dto.UserDTO;
@@ -34,21 +34,21 @@ public class UserResouces {
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Useer> find(@PathVariable Integer id){
-		Useer obj = service.find(id);
+	public ResponseEntity<User> find(@PathVariable Integer id){
+		User obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET)
-	public ResponseEntity<Useer> find(@RequestParam(value="value") String email) {
-		Useer obj = service.findByEmail(email);
+	public ResponseEntity<User> find(@RequestParam(value="value") String email) {
+		User obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')") //Forces a user is logged in to access this endpoint
 	@RequestMapping(method=RequestMethod.POST) //add a new admin
 	public ResponseEntity<Void> insert(@Valid @RequestBody UserDTO objDto){
-		Useer obj = service.fromDTO(objDto);
+		User obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(obj.getId()).toUri();
@@ -58,7 +58,7 @@ public class UserResouces {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //update an entire ADM
 	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto,@PathVariable Integer id) throws ObjectNotFoundException{
-		Useer obj = service.fromDTO(objDto);
+		User obj = service.fromDTO(objDto);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
@@ -89,7 +89,7 @@ public class UserResouces {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.GET) //list all ADM
 	public ResponseEntity<List<UserDTO>> findPage() {
-		List<Useer> list = service.findAll();
+		List<User> list = service.findAll();
 		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
@@ -101,7 +101,7 @@ public class UserResouces {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction){
-		Page<Useer> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<User> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<UserDTO> listDTO = list.map(obj -> new UserDTO(obj));
 		return ResponseEntity.ok().body(listDTO);
 	}

@@ -2,14 +2,14 @@ package br.com.selecaojava.services.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class PropertyNotFoundException extends Exception{
+public class SalesNotFoundException extends Exception{
 	    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private HttpStatus httpStatus;
 
-		public PropertyNotFoundException (String mensagem, HttpStatus httpStatus){
+		public SalesNotFoundException (String mensagem, HttpStatus httpStatus){
 	              super (mensagem);
 	              this.httpStatus = httpStatus;
 	     }

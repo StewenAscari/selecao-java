@@ -1,7 +1,7 @@
 
 package br.com.selecaojava.services;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.selecaojava.domain.Useer;
+import br.com.selecaojava.domain.User;
 import br.com.selecaojava.dto.NomeDTO;
 import br.com.selecaojava.dto.PasswordDTO;
 import br.com.selecaojava.dto.UserDTO;
@@ -33,41 +33,41 @@ public class UserService {
 	@Autowired
 	private UserRepository repo;
 	
-	public Useer find(Integer id) throws ObjectNotFoundException {
+	public User find(Integer id) throws ObjectNotFoundException {
 		UserSS user = UserServiceService.authenticated();
 		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}		
-		Optional<Useer> obj = repo.findById(id);
+		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Useer.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));
 	}
 	
 	@Transactional
-	public Useer insert(Useer obj) {
+	public User insert(User obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 
-	public Useer update(Useer obj) throws ObjectNotFoundException {	
-		Useer newObj = find(obj.getId());
+	public User update(User obj) throws ObjectNotFoundException {	
+		User newObj = find(obj.getId());
 		updateData(newObj,obj);
 		return repo.save(obj);
 	}
 	
-	public Useer update(PasswordDTO obj) throws ObjectNotFoundException {		
-		Useer newObj = find(obj.getId());
+	public User update(PasswordDTO obj) throws ObjectNotFoundException {		
+		User newObj = find(obj.getId());
 		updatePassword(newObj,obj);
 		return repo.save(newObj);
 	}
 	
-	public Useer update(NomeDTO obj) throws ObjectNotFoundException {		
-		Useer newObj = find(obj.getId());
+	public User update(NomeDTO obj) throws ObjectNotFoundException {		
+		User newObj = find(obj.getId());
 		updateNome(newObj,obj);
 		return repo.save(newObj);
 	}
 	
-	private void updateNome(Useer newObj, NomeDTO obj) {
+	private void updateNome(User newObj, NomeDTO obj) {
 		newObj.setId(obj.getId());
 		newObj.setNome(obj.getNome());
 	}
@@ -80,7 +80,7 @@ public class UserService {
 		return new PasswordDTO(objDto.getId(), pe.encode(objDto.getSenha()));
 	}
 	
-	private void updatePassword(Useer newObj,PasswordDTO obj) {
+	private void updatePassword(User newObj,PasswordDTO obj) {
 		newObj.setId(obj.getId());
 		newObj.setSenha(obj.getSenha());
 	}
@@ -95,33 +95,33 @@ public class UserService {
 		}
 	}
 
-	public List<Useer> findAll() {
+	public List<User> findAll() {
 		return repo.findAll();
 	}
 	
-	public Page<Useer> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+	public Page<User> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 	
-	public Useer fromDTO(UserDTO objDto) {
-		return new Useer(objDto.getId(),objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(),objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));
 	}
 	
-	private void updateData(Useer newObj,Useer obj) {
+	private void updateData(User newObj,User obj) {
 		newObj.setNome(obj.getNome());
 	}
 	
-	public Useer findByEmail(String email){
+	public User findByEmail(String email){
 		
 		UserSS user = UserServiceService.authenticated();
 		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
 			throw new AuthorizationException("Acesso negado");
 		}
-		Useer obj = repo.findByEmail(email);
+		User obj = repo.findByEmail(email);
 		if (obj == null) {
 			throw new ObjectNotFoundException(
-					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Useer.class.getName());
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + User.class.getName());
 		}
 		return obj;
 	}

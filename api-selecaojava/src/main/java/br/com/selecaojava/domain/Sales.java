@@ -1,20 +1,25 @@
 package br.com.selecaojava.domain;
 
-import java.util.Set;
+import java.io.Serializable;
+import java.util.Set; 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
 @Entity
-public class Vendas {
+public class Sales implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -53,13 +58,15 @@ public class Vendas {
 	
 	@CsvBindByPosition(position = 10)
 	private String bandeira;
-	
-	
-	public Vendas() {
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private User user;
+	public Sales() {
 		
 	}
-	public Vendas(Integer id, String regiaoSigla, String stadoSigla, String municipio, String revenda, String revendaCNPJ, String produto, String dataColeta,
-	String valorVenda, String valorCompra, String unidadeMedida, String bandeira) {
+	public Sales(Integer id, String regiaoSigla, String stadoSigla, String municipio, String revenda, String revendaCNPJ, String produto, String dataColeta,
+	String valorVenda, String valorCompra, String unidadeMedida, String bandeira, User user) {
 		this.id = id;
 		this.regiaoSigla = regiaoSigla;
 		this.estadoSigla = stadoSigla;
@@ -72,6 +79,7 @@ public class Vendas {
 		this.valordeCompra = valorCompra;
 		this.unidadedeMedida = unidadeMedida;
 		this.bandeira = bandeira;
+		this.user = user;
 	}
 	
 	
@@ -147,6 +155,13 @@ public class Vendas {
 	}
 	public void setBandeira(String bandeira) {
 		this.bandeira = bandeira;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	@Override
 	public int hashCode() {
