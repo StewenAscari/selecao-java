@@ -6,60 +6,62 @@ import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
 import br.com.selecaojava.domain.Sales;
+import br.com.selecaojava.domain.User;
 
-public class VendasDTO {
+public class ModelCSVDTO {
 
-	@CsvBindByName(column = "Região - Sigla")
 	@Column(columnDefinition = "VARCHAR(1000)")
+	@CsvBindByPosition(position = 0)
 	private String regiaoSigla;
 	
-	@CsvBindByName(column = "Estado - Sigla")
+	@CsvBindByPosition(position = 1)
 	private String estadoSigla;
 	
-	@CsvBindByName(column = "Município")
+	@CsvBindByPosition(position = 2)
 	private String municipio;
 	
-	@CsvBindByName(column = "Revenda")
+	@CsvBindByPosition(position = 3)
 	private String revenda;
 	
-	@CsvBindByName(column = "CNPJ da Revenda")
+	@CsvBindByPosition(position = 4)
 	private String cnpjdaRevenda;
 	
-	@CsvBindByName(column = "Produto")
+	@CsvBindByPosition(position = 5)
 	private String produto;
 	
-	@CsvBindByName(column = "Data da Coleta")
+	@CsvBindByPosition(position = 6)
 	private String datadaColeta;
 	
-	@CsvBindByName(column = "Valor de Venda")
+	@CsvBindByPosition(position = 7)
 	private String valordeVenda;
 	
-	@CsvBindByName(column = "Valor de Compra")
+	@CsvBindByPosition(position = 8)
 	private String valordeCompra;
 	
-	@CsvBindByName(column = "Unidade de Medida")
+	@CsvBindByPosition(position = 9)
 	private String unidadedeMedida;
 	
-	@CsvBindByName(column = "Bandeira")
+	@CsvBindByPosition(position = 10)
 	private String bandeira;
 	
-	private Integer id;
-	
-	public VendasDTO() {
+	public ModelCSVDTO() {
 		
 	}
-	public VendasDTO(Sales vendas) {
-		regiaoSigla = vendas.getRegiaoSigla();
-		estadoSigla = vendas.getEstadoSigla();
-		municipio = vendas.getMunicipio();
-		revenda = vendas.getRevenda();
-		cnpjdaRevenda = vendas.getCnpjdaRevenda();
-		produto = vendas.getProduto();
-		datadaColeta = vendas.getDatadaColeta();
-		valordeVenda = vendas.getValordeVenda();
-		valordeCompra = vendas.getValordeCompra();
-		unidadedeMedida = vendas.getUnidadedeMedida();
-		bandeira = vendas.getBandeira();
+	public ModelCSVDTO(String regiaoSigla, String stadoSigla, String municipio, String revenda, String revendaCNPJ, String produto, String dataColeta,
+	String valorVenda, String valorCompra, String unidadeMedida, String bandeira, User user) {
+		
+		this.regiaoSigla = regiaoSigla;
+		this.estadoSigla = stadoSigla;
+		this.municipio = municipio;
+		this.revenda = revenda;
+		this.cnpjdaRevenda = revendaCNPJ;
+		this.produto = produto;
+		this.datadaColeta = dataColeta;
+		this.valordeVenda = valorVenda;
+		this.valordeCompra = valorCompra;
+		this.unidadedeMedida = unidadeMedida;
+		this.bandeira = bandeira;
+
 	}
 	public String getRegiaoSigla() {
 		return regiaoSigla;
@@ -126,12 +128,6 @@ public class VendasDTO {
 	}
 	public void setBandeira(String bandeira) {
 		this.bandeira = bandeira;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
 	}
 	
 	

@@ -60,7 +60,8 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	private static final String[] PUBLIC_MATCHERS_POST = { //Endpoint array that a non-logged in user can only add data to	
 			"/user/**",
 			"/auth/forgot/**",
-			"/vendas/**"
+			"/vendas/**",
+			"/priceHistoric/**"
 	};
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{

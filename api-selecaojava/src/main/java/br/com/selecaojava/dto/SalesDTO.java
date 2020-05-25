@@ -1,33 +1,19 @@
-package br.com.selecaojava.domain;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set; 
+package br.com.selecaojava.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
-@Entity
-public class Sales implements Serializable{
-	private static final long serialVersionUID = 1L;
+import br.com.selecaojava.domain.Sales;
+import br.com.selecaojava.domain.User;
+
+public class SalesDTO {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
 	@Column(columnDefinition = "VARCHAR(1000)")
 	private String regiaoSigla;
 	
@@ -42,7 +28,7 @@ public class Sales implements Serializable{
 	private String produto;
 	
 	private String datadaColeta;
-	
+
 	private String valordeVenda;
 	
 	private String valordeCompra;
@@ -50,15 +36,12 @@ public class Sales implements Serializable{
 	private String unidadedeMedida;
 	
 	private String bandeira;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
-	private User user;
-	public Sales() {
+	
+	public SalesDTO(Sales obj) {
 		
 	}
-	public Sales(String regiaoSigla, String stadoSigla, String municipio, String revenda, String revendaCNPJ, String produto, String dataColeta,
-	String valorVenda, String valorCompra, String unidadeMedida, String bandeira, User user) {
+	public SalesDTO(String regiaoSigla, String stadoSigla, String municipio, String revenda, String revendaCNPJ, String produto, String dataColeta,
+	String valorVenda, String valorCompra, String unidadeMedida, String bandeira) {
 		
 		this.regiaoSigla = regiaoSigla;
 		this.estadoSigla = stadoSigla;
@@ -71,26 +54,8 @@ public class Sales implements Serializable{
 		this.valordeCompra = valorCompra;
 		this.unidadedeMedida = unidadeMedida;
 		this.bandeira = bandeira;
-		this.user = user;
+
 	}
-	
-	public Sales(Integer id, String regiaoSigla, String stadoSigla, String municipio, String revenda, String revendaCNPJ, String produto, String dataColeta,
-			String valorVenda, String valorCompra, String unidadeMedida, String bandeira) {
-				this.id = id;
-				this.regiaoSigla = regiaoSigla;
-				this.estadoSigla = stadoSigla;
-				this.municipio = municipio;
-				this.revenda = revenda;
-				this.cnpjdaRevenda = revendaCNPJ;
-				this.produto = produto;
-				this.datadaColeta = dataColeta;
-				this.valordeVenda = valorVenda;
-				this.valordeCompra = valorCompra;
-				this.unidadedeMedida = unidadeMedida;
-				this.bandeira = bandeira;
-				this.user = user;
-			}
-	
 	
 	public Integer getId() {
 		return id;
@@ -138,7 +103,7 @@ public class Sales implements Serializable{
 		return datadaColeta;
 	}
 	public void setDatadaColeta(String datadaColeta) {
-		datadaColeta = datadaColeta;
+		this.datadaColeta = datadaColeta;
 	}
 	public String getValordeVenda() {
 		return valordeVenda;
@@ -163,19 +128,5 @@ public class Sales implements Serializable{
 	}
 	public void setBandeira(String bandeira) {
 		this.bandeira = bandeira;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
 	}
 }
