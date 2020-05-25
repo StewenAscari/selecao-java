@@ -1,0 +1,71 @@
+-- fazer login --
+
+curl --request POST \
+  --url http://localhost:8080/login \
+  --header 'content-type: application/json' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D \
+  --data '{
+	"email": "admin@gmail.com",
+	"senha": "admin"
+}'
+
+-- import csv --
+
+curl --request PUT \
+  --url http://localhost:8080/user/1/sales/upload-csv-file \
+  --header 'authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE1OTA0MTcyMTh9.iwoS-LpHujpSppgGLmKzrpCT1MgA1n_Tx9nOrw2eFxcJk9a5zct4IhWcMPBBIrM6LZ242M69s0dYXJo8X-8T6A' \
+  --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' \
+  --header 'content-typeype: application/json' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D \
+  --form id=1 \
+  --form file=
+
+
+-- listar todos os dados do csv importado --
+
+curl --request GET \
+  --url http://localhost:8080/user/1/sales \
+  --header 'authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE1OTA0MzQzMTd9.c5qhLZC6F-nzvI9JLrCqGjWT5PYFYWYrsokmIcw8iJ1qBrEkTodMq77v38Dns2nwPYfq5OukFf6y-g42fdKI2w' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D
+
+-- update de um dos dados do csv importado --
+
+curl --request PUT \
+  --url http://localhost:8080/user/1/sales/2 \
+  --header 'authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE1OTA0MzQzMTd9.c5qhLZC6F-nzvI9JLrCqGjWT5PYFYWYrsokmIcw8iJ1qBrEkTodMq77v38Dns2nwPYfq5OukFf6y-g42fdKI2w' \
+  --header 'content-type: application/json' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D \
+  --data '{
+	"id":"2",
+	"regiaoSigla": "pe",
+	"estadoSigla":"pe",
+	"municipio":"eee",
+	"revenda":"eee",
+	"cnpjdaRevenda":"eeeeeeeee",
+	"produto":"eeeeee",
+	"dataColeta":"eeeeeeee",
+	"valorVenda":"eeeeee",
+	"valorCompra":"eeeeeee",
+	"unidadeMedida":"eeee",
+	"bandeira":"eeee"
+}'
+
+-- deletar um dos dados do csv importado --
+
+curl --request DELETE \
+  --url http://localhost:8080/user/1/sales/1 \
+  --header 'authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE1OTA0MzQzMTd9.c5qhLZC6F-nzvI9JLrCqGjWT5PYFYWYrsokmIcw8iJ1qBrEkTodMq77v38Dns2nwPYfq5OukFf6y-g42fdKI2w' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D
+
+-- buscar por sigla do estado --
+curl --request GET \
+  --url http://localhost:8080/user/1/sales/find/co \
+  --header 'authorization:  Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE1OTAzMzA0ODZ9.Ayqfj0Z-WQ7VXRshOOUTfq537OnU-HhZH7L8SuIfR6tLGQbg1h7lF3KRptTOdvhsdGQ7-_kkzfkAVH7SNSN3Fw' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D
+
+-- buscar por um dos dados do csv importado pelo id --
+
+curl --request GET \
+  --url http://localhost:8080/user/1/sales/consulta/1 \
+  --header 'authorization:  Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE1OTAzMzA0ODZ9.Ayqfj0Z-WQ7VXRshOOUTfq537OnU-HhZH7L8SuIfR6tLGQbg1h7lF3KRptTOdvhsdGQ7-_kkzfkAVH7SNSN3Fw' \
+  --cookie JSESSIONID=7C281E49BC8E185E595B6A647727910D
